@@ -36,7 +36,20 @@ All colors MUST be HSL.
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    /* Brand tokens */
+    --brand: 258 90% 62%;
+    --brand-foreground: 0 0% 100%;
+    --brand-glow: 258 90% 70%;
+
+    /* Motion & shadows */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-elevated: 0 12px 28px -8px hsl(var(--brand) / 0.25);
+    --shadow-glow: 0 0 0 6px hsl(var(--brand) / 0.18);
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--brand)) 0%, hsl(var(--brand-glow)) 100%);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -83,6 +96,13 @@ All colors MUST be HSL.
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+    /* Brand in dark mode */
+    --brand: 258 90% 70%;
+    --brand-foreground: 0 0% 100%;
+    --brand-glow: 258 90% 78%;
+    --gradient-hero: linear-gradient(135deg, hsl(var(--brand)) 0%, hsl(var(--brand-glow)) 100%);
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -102,4 +122,29 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer components {
+  /* Signature gradient background for hero sections */
+  .bg-hero {
+    background-image: var(--gradient-hero);
+  }
+
+  /* Hero button using tokens */
+  .btn-hero {
+    background-image: var(--gradient-hero);
+    color: hsl(var(--brand-foreground));
+    box-shadow: var(--shadow-elevated);
+    transition: var(--transition-smooth);
+  }
+  .btn-hero:hover { transform: translateY(-1px); }
+  .btn-hero:focus-visible { box-shadow: var(--shadow-glow); }
+
+  /* Elevated card surface */
+  .project-card {
+    @apply border bg-card;
+    box-shadow: var(--shadow-elevated);
+    transition: var(--transition-smooth);
+  }
+  .project-card:hover { transform: translateY(-2px); }
 }
